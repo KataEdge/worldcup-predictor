@@ -10,6 +10,7 @@ from graph import (
 )
 from state import WorldCupState
 
+
 def test_get_tactical_modifier():
     # 3すくみのアドバンテージ側の検証
     assert get_tactical_modifier("possession", "press") == (1.05, 0.95)
@@ -28,24 +29,40 @@ def test_get_tactical_modifier():
 
 def test_get_stadium_modifier():
     # 1. ホームアドバンテージ (+10%)
-    assert get_stadium_modifier("Brazil", "possession", "standard", "Brazil") == pytest.approx(1.10)
-    assert get_stadium_modifier("Germany", "press", "standard", "Brazil") == pytest.approx(1.0)
+    assert get_stadium_modifier(
+        "Brazil", "possession", "standard", "Brazil"
+    ) == pytest.approx(1.10)
+    assert get_stadium_modifier(
+        "Germany", "press", "standard", "Brazil"
+    ) == pytest.approx(1.0)
 
     # 2. 高地デバフ (標高2,200m。CONMEBOL/メキシコ以外は -10%)
     # ドイツ (デバフ対象) -> 0.90
-    assert get_stadium_modifier("Germany", "press", "altitude", "USA") == pytest.approx(0.90)
+    assert get_stadium_modifier("Germany", "press", "altitude", "USA") == pytest.approx(
+        0.90
+    )
     # ブラジル (デバフ対象外) -> 1.0
-    assert get_stadium_modifier("Brazil", "possession", "altitude", "USA") == pytest.approx(1.0)
+    assert get_stadium_modifier(
+        "Brazil", "possession", "altitude", "USA"
+    ) == pytest.approx(1.0)
 
     # 3. 人工芝 (ポゼッションスタイルは +5% バフ、それ以外は -5% デバフ)
-    assert get_stadium_modifier("Spain", "possession", "turf", "USA") == pytest.approx(1.05)
-    assert get_stadium_modifier("Germany", "press", "turf", "USA") == pytest.approx(0.95)
+    assert get_stadium_modifier("Spain", "possession", "turf", "USA") == pytest.approx(
+        1.05
+    )
+    assert get_stadium_modifier("Germany", "press", "turf", "USA") == pytest.approx(
+        0.95
+    )
 
     # 4. 酷暑 (欧州+東アジア勢は -5% デバフ)
     # ドイツ (欧州勢、デバフ対象) -> 0.95
-    assert get_stadium_modifier("Germany", "press", "heat", "USA") == pytest.approx(0.95)
+    assert get_stadium_modifier("Germany", "press", "heat", "USA") == pytest.approx(
+        0.95
+    )
     # ブラジル (デバフ対象外) -> 1.0
-    assert get_stadium_modifier("Brazil", "possession", "heat", "USA") == pytest.approx(1.0)
+    assert get_stadium_modifier("Brazil", "possession", "heat", "USA") == pytest.approx(
+        1.0
+    )
 
 
 def test_calc_node():
@@ -81,7 +98,9 @@ def test_calc_node():
     assert "expected_goals_b" in result
 
     # 確率の合計値がほぼ 1.0 になるか検証
-    total_prob = result["prob_team_a_win"] + result["prob_team_b_win"] + result["prob_draw"]
+    total_prob = (
+        result["prob_team_a_win"] + result["prob_team_b_win"] + result["prob_draw"]
+    )
     assert total_prob == pytest.approx(1.0, rel=1e-2)
 
 

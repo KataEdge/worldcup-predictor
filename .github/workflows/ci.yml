@@ -2,9 +2,9 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "first_baranch_20260620" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "first_baranch_20260620" ]
 
 jobs:
   build-and-test:

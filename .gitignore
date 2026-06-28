@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+ENV/
+
+# Streamlit
+.streamlit/
+
+# Testing & Coverage
+.coverage
+.pytest_cache/
+.ruff_cache/
+htmlcov/
+nosetests.xml
+coverage.xml
+
+# Environment variables (Sensitive)
+.env
+.env.*
+!.env.example
+
+# Local Database (Auto-generated/Cache)
+worldcup.db
+
+# OS specific files
+.DS_Store
+Thumbs.db

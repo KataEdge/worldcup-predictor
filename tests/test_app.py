@@ -28,6 +28,15 @@ def mock_external_calls(monkeypatch, tmp_path):
     monkeypatch.delenv("SUPABASE_URL", raising=False)
     monkeypatch.delenv("SUPABASE_KEY", raising=False)
 
+    # LangGraph の Mermaid画像生成 (外部通信) をモック化
+    from langgraph.graph.state import CompiledStateGraph
+    from unittest.mock import MagicMock
+
+    mock_graph_obj = MagicMock()
+    mock_graph_obj.draw_mermaid_png.return_value = b"fake-png-bytes"
+    mock_graph_obj.draw_mermaid.return_value = "graph TD\n  A --> B"
+    monkeypatch.setattr(CompiledStateGraph, "get_graph", lambda self: mock_graph_obj)
+
 
 def test_app_load():
     db.init_sqlite_db()

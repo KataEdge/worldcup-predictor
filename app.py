@@ -75,6 +75,25 @@ else:
         "England",
     ]
 
+# サイドバーにエージェントフロー図を表示
+with st.sidebar:
+    st.subheader("🤖 AIエージェント設計フロー")
+    st.markdown(
+        "このアプリは、以下のフローに沿って複数の推論エージェントが討論を行い、勝敗の定量予測を算出しています。"
+    )
+    try:
+        # LangGraphから Mermaidフロー図(PNG)を生成して表示
+        graph_obj = create_graph()
+        png_data = graph_obj.get_graph().draw_mermaid_png()
+        st.image(png_data)
+    except Exception:
+        # 画像取得に失敗した場合はMermaidのコードテキストを表示 (フォールバック)
+        st.warning("設計図画像の取得に失敗しました。")
+        try:
+            st.code(graph_obj.get_graph().draw_mermaid(), language="mermaid")
+        except Exception:
+            pass
+
 # タブ定義
 tab1, tab2 = st.tabs(["⚔️ 1試合 勝敗予想", "🏆 トーナメントシミュレータ"])
 

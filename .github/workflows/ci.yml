@@ -9,6 +9,9 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
 
     steps:
     - name: Checkout repository
@@ -34,4 +37,10 @@ jobs:
       env:
         PYTHONPATH: .
       run: |
-        pytest
+        pytest --cov=. --cov-report=xml --cov-report=term-missing
+
+    - name: Pytest coverage comment
+      if: github.event_name == 'pull_request'
+      uses: MishaKav/pytest-coverage-comment@main
+      with:
+        pytest-xml-coverage-path: ./coverage.xml

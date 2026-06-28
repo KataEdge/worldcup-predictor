@@ -6,7 +6,8 @@ CREATE TABLE teams (
   avg_goals NUMERIC NOT NULL,
   group_name TEXT NOT NULL,
   market_value NUMERIC NOT NULL DEFAULT 50,
-  tactics_style TEXT NOT NULL DEFAULT 'balanced'
+  tactics_style TEXT NOT NULL DEFAULT 'balanced',
+  pk_rating INT NOT NULL DEFAULT 3
 );
 
 -- 歴史的対戦データおよび2026年大会の試合データを格納するテーブル

@@ -7,3 +7,5 @@ supabase
 python-dotenv
 langchain-google-genai
 pydantic
+pytest
+ruff

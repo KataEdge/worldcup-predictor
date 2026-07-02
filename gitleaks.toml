@@ -1,0 +1,9 @@
+# Gitleaks configuration file
+# This allowlist prevents Gitleaks from flagging historical .env files 
+# or dummy values in .env.example.
+
+[allowlist]
+paths = [
+    "\\.env\\.example$",
+    "\\.env$"
+]
